@@ -1,10 +1,10 @@
-.service {
+.expert {
     border: 1px solid lightgray;
-    border-radius: 5px;
     text-align: center;
     width: 100%;
+    border-radius: 5px;
 }
 
-.service img {
+.expert img {
     width: 100%;
 }
