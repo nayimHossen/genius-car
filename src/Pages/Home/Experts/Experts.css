@@ -5,6 +5,10 @@
     grid-gap: 30px;
 }
 
+.experts-style {
+    margin-bottom: 30px;
+}
+
 @media only screen and (max-width: 576px) {
     .experts-container {
         grid-template-columns: repeat(1, 1fr);

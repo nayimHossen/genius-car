@@ -21,7 +21,7 @@ const experts = [
 
 const Experts = () => {
     return (
-        <div className='container'>
+        <div className='container experts-style'>
             <h2 className='section-title'>Our Expert</h2>
             <div className='experts-container'>
                 {
