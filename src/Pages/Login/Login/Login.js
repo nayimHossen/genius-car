@@ -6,6 +6,7 @@ import auth from '../../../firebase.init';
 import SociaLogin from '../SocialLogin/SociaLogin';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PageTitle from '../../Shared/PageTitle/PageTitle';
 
 const Login = () => {
     const emailRef = useRef();
@@ -55,6 +56,7 @@ const Login = () => {
     return (
         <div className='container w-50 mx-auto' style={{ height: "90vh" }}>
             <h2>Login</h2>
+            <PageTitle title="Login" />
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
