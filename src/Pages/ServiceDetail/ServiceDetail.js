@@ -7,7 +7,7 @@ const ServiceDetail = () => {
     return (
         <div>
             <h2>This is service components={serviceId}</h2>
-            <Link to="checkout">
+            <Link to="/checkout">
                 <button>checkout button</button>
             </Link>
         </div>
