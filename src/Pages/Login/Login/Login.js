@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import SociaLogin from '../SocialLogin/SociaLogin';
 
@@ -20,8 +20,15 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
+    const [sendPasswordResetEmail, sending, forgetError] = useSendPasswordResetEmail(auth);
+
     if (user) {
         navigate(from, { replace: true });
+    }
+
+    let showError;
+    if (error || forgetError) {
+        showError = <p className='text-danger'>Error: {error?.message} {forgetError?.message}</p>
     }
 
     const handleSubmit = (event) => {
@@ -31,6 +38,12 @@ const Login = () => {
 
         signInWithEmailAndPassword(email, password);
     };
+
+    const resetPassword = async () => {
+        const email = emailRef.current.value;
+        await sendPasswordResetEmail(email);
+        alert("Email send you inbox")
+    }
 
     return (
         <div className='container w-50 mx-auto' style={{ height: "90vh" }}>
@@ -45,15 +58,15 @@ const Login = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control ref={passwordRef} type="password" placeholder="Password" />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group>
+
+                {loading && "Loading..."}
                 <Button variant="primary" type="submit">
                     Login
                 </Button>
             </Form>
-
+            {showError}
             <p>New to genius car ? <Link to="/register">Create an account</Link></p>
+            <p>Forget Password ? <Link to="" onClick={resetPassword}>Reset Password</Link></p>
             <SociaLogin></SociaLogin>
         </div>
     );
