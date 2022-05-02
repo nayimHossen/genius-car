@@ -7,6 +7,7 @@ import SociaLogin from '../SocialLogin/SociaLogin';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PageTitle from '../../Shared/PageTitle/PageTitle';
+import axios from 'axios';
 
 const Login = () => {
     const emailRef = useRef();
@@ -26,7 +27,7 @@ const Login = () => {
     const [sendPasswordResetEmail, sending, forgetError] = useSendPasswordResetEmail(auth);
 
     if (user) {
-        navigate(from, { replace: true });
+        // navigate(from, { replace: true });
     }
 
     let showError;
@@ -34,12 +35,15 @@ const Login = () => {
         showError = <p className='text-danger'>Error: {error?.message} {forgetError?.message}</p>
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
 
-        signInWithEmailAndPassword(email, password);
+        await signInWithEmailAndPassword(email, password);
+        const { data } = await axios.post('http://localhost:5000/login', { email })
+        localStorage.setItem('accessToken', data.accessToken);
+        navigate(from, { replace: true });
     };
 
     const resetPassword = async () => {
