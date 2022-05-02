@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PageTitle from '../../Shared/PageTitle/PageTitle';
 import axios from 'axios';
+import useToken from '../../../hooks/useToken';
 
 const Login = () => {
     const emailRef = useRef();
@@ -25,9 +26,10 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
 
     const [sendPasswordResetEmail, sending, forgetError] = useSendPasswordResetEmail(auth);
+    const [token] = useToken(user);
 
-    if (user) {
-        // navigate(from, { replace: true });
+    if (token) {
+        navigate(from, { replace: true });
     }
 
     let showError;
@@ -41,9 +43,7 @@ const Login = () => {
         const password = passwordRef.current.value;
 
         await signInWithEmailAndPassword(email, password);
-        const { data } = await axios.post('https://shielded-fortress-24229.herokuapp.com/login', { email })
-        localStorage.setItem('accessToken', data.accessToken);
-        navigate(from, { replace: true });
+
     };
 
     const resetPassword = async () => {
