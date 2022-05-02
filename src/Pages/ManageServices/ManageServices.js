@@ -21,7 +21,7 @@ const ManageServices = () => {
     };
 
     return (
-        <div>
+        <div style={{ height: "90vh" }}>
             <h2>This is ManageServices</h2>
             {
                 services.map(service => <div key={service._id}>
